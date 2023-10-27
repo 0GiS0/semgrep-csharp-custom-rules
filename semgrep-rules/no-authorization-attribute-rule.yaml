@@ -1,0 +1,18 @@
+rules:
+- id: no-authorize-attribute
+  languages:
+  - "csharp"
+  patterns:
+  - pattern: |
+      [ApiController]      
+      public class $CLASS: ControllerBase {
+        ...
+      }
+  - pattern-not: |      
+      [Authorize]
+      [ApiController]
+      public class $CLASS: ControllerBase {
+        ...
+      }
+  message: All APIs needs Authorize attribute
+  severity: "ERROR"

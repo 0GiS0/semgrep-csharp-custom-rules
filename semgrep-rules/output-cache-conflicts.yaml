@@ -1,0 +1,24 @@
+rules:
+- id: "output-cache-conflicts"
+  languages:
+  - "csharp"
+  patterns:
+  - pattern-inside: |
+      [Authorize]
+      public class $CLZ {
+        ...
+      }
+  - pattern: |
+      [OutputCache]
+      public $RET $FOO(...)
+      {
+        ...
+      }
+  message: |
+    Having the annotation [OutputCache] will disable the annotation [Authorize] for
+    the requests following the first one.
+  severity: "INFO"
+  metadata:
+    shortDescription: "Use of cache containing sensitive information"
+    category: "security"
+    cwe: "CWE-524"
